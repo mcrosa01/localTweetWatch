@@ -1,0 +1,9 @@
+#twitterfeed {
+	border-style: solid;
+	border-width: 1px;
+	border-color: red;
+}
+
+.tweet {
+	border: 1px solid blue;
+}
