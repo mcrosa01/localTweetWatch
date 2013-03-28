@@ -1,0 +1,21 @@
+html { height: 100% }
+
+body { height: 100%; 
+	margin: 0; 
+	padding: 0; 
+	background-color: #FFF;
+	font-family: "Arial Black", Gadget, sans-serif;
+}
+
+header{
+	color: #FFF;
+	background-color: #44AAFF;
+}
+
+#map-canvas { height: 50%; 
+	width: 60%;
+	float: left;
+	border-color: #44AAFF;
+	border-style:inset;
+	border-width: 10px;
+}
