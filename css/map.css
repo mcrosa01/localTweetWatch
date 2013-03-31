@@ -1,7 +1,11 @@
 html { height: 100% }
+@font-face{
+	font-fanmily: "Archive";
+	src: url('type/archive/Archive.eot?') format('eot'), url('type/archive/Archive.woff') format('woff'), url('type/archive/Archive.ttf') format('truetype');
+}
 
 body { height: 100%; 
-	margin: 0; 
+	margin: 30px; 
 	padding: 0; 
 	background-color: #FFF;
 	font-family: "Arial Black", Gadget, sans-serif;
@@ -10,12 +14,24 @@ body { height: 100%;
 header{
 	color: #FFF;
 	background-color: #44AAFF;
+	box-shadow: 5px 5px 5px #888888;
+	font-family: "Archive", "Arial Black", Gadget, sans-serif;
+	font-size: xx-large;
 }
 
+footer{
+	color: #000;
+	font-family: "Arial Black", Gadget, sans-serif;
+	font-size: small;
+	position: absolute;
+	bottom: 5px;
+}
 #map-canvas { height: 50%; 
 	width: 60%;
 	float: left;
 	border-color: #44AAFF;
-	border-style:inset;
+	border-style:solid;
 	border-width: 10px;
+	box-shadow: 5px 5px 5px #888888; 
 }
+/*What if we used a gradient to help the background look fancier?*/

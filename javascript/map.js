@@ -6,9 +6,16 @@ initialize = function() {
 	}
 	var map = new google.maps.Map(document.getElementById("map-canvas"),
 		mapOptions)
+		
+
 //the following is stuff from the Google tutorial.
 	var marker = new google.maps.Marker({
-		position: map.getCenter(),
+	//*************************************************Notes*******************
+	// this is the options to include, the LatLng would be recieved from the Tweets
+	// Since I can't figure out how exactly to set the numbers different...
+	// What if when you click on a marker it changes the color of that tweet? 
+	// I think I could manage that. 
+		position: new google.maps.LatLng(37.791157,-122.408720),
 		map: map,
 		title: 'Click to zoom'
 	});	
