@@ -15,14 +15,29 @@ access_token_secret = "QVAiyMzmYs2GZac384MNCppJvzxjpoTqkzAZcx9sjQ"
 
 oauth_token    = oauth.Token(key=access_token_key, secret=access_token_secret)
 oauth_consumer = oauth.Consumer(key=consumer_key, secret=consumer_secret)
-
+geocode = "geocode=37,-122,1mi"
+since_id = ""
+result_type = ""
+count = ""
 # Url and parameters
-
-qs = parse_qs(os.environ['QUERY_STRING'])
-if 'geocode' in qs:
-    http_url = "https://api.twitter.com/1.1/search/tweets.json?geocode=" + qs['geocode'][0]
-else:
-    http_url = "https://api.twitter.com/1.1/search/tweets.json?geocode=37,-122,1,mi"
+if 'QUERY_STRING' in os.environ:
+    qs = parse_qs(os.environ['QUERY_STRING'])
+    if 'geocode' in qs:
+        geocode = "geocode=" + qs['geocode'][0]
+        
+    since_id = ""
+    if 'since_id' in qs:
+        since_id = "&since_id=" + qs['since_id'][0]
+        
+    result_type = ""
+    if 'result_type' in qs:
+        result_type = "&result_type=" + qs['result_type'][0]
+        
+    count = ""
+    if 'count' in qs:
+        count = "&count=" + qs['count'][0]
+    
+http_url = "https://api.twitter.com/1.1/search/tweets.json?" + geocode + since_id + result_type + count
 
 #Https Handler
 https_handler = urllib2.HTTPSHandler()
@@ -46,5 +61,7 @@ data = response.read()
 
 
 #Return data
-print "Content-type:application/json\n\n"
+print "Content-type:application/json"
+print "Access-Control-Allow-Origin: *"
+print
 print data

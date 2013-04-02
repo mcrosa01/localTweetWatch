@@ -27,7 +27,7 @@ footer{
 	bottom: 5px;
 }
 #map-canvas { height: 50%; 
-	width: 60%;
+	width: 50%;
 	float: left;
 	border-color: #44AAFF;
 	border-style:solid;

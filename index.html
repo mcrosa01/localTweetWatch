@@ -1,18 +1,67 @@
+<!DOCTYPE html>
 <html>
 	<head>
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+		<link rel="stylesheet" href= "css/map.css">
 		<link rel="stylesheet" type="text/css" href="css/index.css" />
-		<script type="text/javascript" src="javascript/jquery-1.9.1.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/twitter.css" />
+
 		<script type="text/javascript" src="javascript/tweetwatcher.js"></script>
+		<script type="text/javascript"
+		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCtlG8E958PWlxQ1qHw38PmYymXfIjSpww&sensor=true"></script>
+		<script type="text/javascript" src="javascript/map.js"></script>
 	</head>
 	<body>
-		<div id="optionpane">
-			<input type="text" id="coords" /><br/>
-			<button onclick="getTweetsGeo()">Get Tweets!</button>
+		<header>
+			<h1> Local Tweet Watcher </h1>
+			<h3> Bird watching for the internet! </h3>
+		</header>
+		<div id="map-canvas"></div>
+		<div id="twitter-widget">
+			<ul id="twitterfeed">
+				<li>
+					<p>
+						Tweets based on Coordinates given!
+					</p>
+					<div class="root standalone-tweet ltr not-touch" dir="ltr" id="twitter-widget-0" lang="en" >
+						<blockquote class="tweet subject expanded h-entry" >
+							You have yet to load any tweets! Click on a spot on the map to do so!
+						</blockquote>
+					</div>
+				</li>
+			</ul>
 		</div>
-		<div id="twitterfeed">
-			<p>Tweets based on Coordinates given!</p>
-			<!-- Content will be dynamically added here -->
+		<div id="search-controls">
+			<div id="optionpane">
+				Latitude
+				<input type="number" id="input-lat" />
+				<br/>
+				Longitude
+				<input type="number" id="input-long" />
+				<br/>
+				Radius
+				<input type="number" id="input-radius" />
+				<br/>
+				<button onclick="getTweets()">
+					Get Tweets!
+				</button>
+				<br/>
+			</div>
 		</div>
+
+		<footer>
+			<p>
+				Big thanks to <a href="http://fontfabric.com/archive-free-font/">font fabric and Slava Kirilenko</a> for the header font!
+			</p>
+		</footer>
 	</body>
+</html>
+
+<html>
+	<head>
+
+	</head>
+	<body>
 
 </html>
