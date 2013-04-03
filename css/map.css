@@ -1,7 +1,6 @@
 html { height: 100% }
 @font-face{
-	font-fanmily: "Archive";
-	src: url('type/archive/Archive.eot?') format('eot'), url('type/archive/Archive.woff') format('woff'), url('type/archive/Archive.ttf') format('truetype');
+	
 }
 
 body { height: 100%; 
@@ -9,6 +8,8 @@ body { height: 100%;
 	padding: 0; 
 	background-color: #FFF;
 	font-family: "Arial Black", Gadget, sans-serif;
+	overflow:scroll;
+	/*^^ TELL JAKE ABOUT THIS FOR TEH SCROLLING*/
 }
 
 header{
