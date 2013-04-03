@@ -36,8 +36,8 @@ function codeAddress() {
 	});
 }
 
-function getTweets() {
-	console.log(map.getCenter())
+function lookForTweets() {
+	bd.getTweetsAndUpdateFeed(map.getCenter().lng(), map.getCenter().lat(), 1)
 }
 
 google.maps.event.addDomListener(window, 'load', initialize)

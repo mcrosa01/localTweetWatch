@@ -1,6 +1,13 @@
 html { height: 100% }
 @font-face{
-	
+	font-family: 'archiveregular';
+    src: url('archive-webfont.eot');
+    src: url('archive-webfont.eot?#iefix') format('embedded-opentype'),
+         url('archive-webfont.woff') format('woff'),
+         url('archive-webfont.ttf') format('truetype'),
+         url('archive-webfont.svg#archiveregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 body { height: 100%; 
@@ -16,7 +23,7 @@ header{
 	color: #FFF;
 	background-color: #44AAFF;
 	box-shadow: 5px 5px 5px #888888;
-	font-family: "Archive", "Arial Black", Gadget, sans-serif;
+	font-family: "archiveregular", "Arial Black", Gadget, sans-serif;
 	font-size: xx-large;
 }
 
