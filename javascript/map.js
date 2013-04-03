@@ -37,7 +37,7 @@ function codeAddress() {
 }
 
 function lookForTweets() {
-	bd.getTweetsAndUpdateFeed(map.getCenter().lng(), map.getCenter().lat(), 1)
+	bd.getTweetsAndUpdateFeed(map.getCenter().lat(), map.getCenter().lng(),1)
 }
 
 google.maps.event.addDomListener(window, 'load', initialize)

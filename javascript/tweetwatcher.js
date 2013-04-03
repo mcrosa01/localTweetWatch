@@ -176,9 +176,9 @@ BirdWatcher.prototype.updateFeedDisplay = function() {
  *
  * @return {Object} geocoords - Description
  */
-BirdWatcher.prototype.getTweetsAndUpdateFeed = function(longitude, latitude, radius) {
+BirdWatcher.prototype.getTweetsAndUpdateFeed = function(latitude, longitude, radius) {
 
-	var coords = longitude + "," + latitude + "," + radius + "mi";
+	var coords = String(latitude) + "," + String(longitude) + "," + String(radius) + "mi";
 	if (!(longitude && latitude && radius)) {
 		//coords = "37.781157,-122.398720,1mi";
 		coords = "41.577906,-93.745085,1mi";
