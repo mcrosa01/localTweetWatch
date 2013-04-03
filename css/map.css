@@ -11,18 +11,15 @@ html { height: 100% }
 }
 
 body { height: 100%; 
-	margin: 30px; 
-	padding: 0; 
 	background-color: #FFF;
 	font-family: "Arial Black", Gadget, sans-serif;
-	overflow:scroll;
-	/*^^ TELL JAKE ABOUT THIS FOR TEH SCROLLING*/
 }
 
 header{
 	color: #FFF;
+	padding-left: 30px; 
 	background-color: #44AAFF;
-	box-shadow: 5px 5px 5px #888888;
+	box-shadow: 0px 0px 5px #888888;
 	font-family: "archiveregular", "Arial Black", Gadget, sans-serif;
 	font-size: xx-large;
 }
@@ -40,6 +37,6 @@ footer{
 	border-color: #44AAFF;
 	border-style:solid;
 	border-width: 10px;
-	box-shadow: 5px 5px 5px #888888; 
+	box-shadow: 0px 0px 5px #888888;
 }
 /*What if we used a gradient to help the background look fancier?*/

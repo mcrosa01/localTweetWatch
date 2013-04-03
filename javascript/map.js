@@ -29,7 +29,7 @@ function codeAddress() {
 	geocoder.geocode( { 'address': address}, function(results, status) {
 		if (status == google.maps.GeocoderStatus.OK) {
 			map.setCenter(results[0].geometry.location);
-			getTweets();
+			lookForTweets();
 		} else {
 			alert('Geocode was not successful for the following reason: ' + status);
 		}
