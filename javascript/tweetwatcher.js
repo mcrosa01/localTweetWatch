@@ -35,6 +35,10 @@ BirdWatcher = function(feeddisplay, numoftweets) {
 	this.since_id = "";
 	this.coordlist = [];
 	this.numoftweets = 10;
+	this.lat;
+	this.lng;
+	this.rad;
+	this.refreshProcId = 0;
 	if (numoftweets) {this.numoftweets = numoftweets;}
 	this.tweets = new CircularBuffer(this.numoftweets);
 	this.feeddisplay = document.getElementById("twitterfeed");
@@ -83,6 +87,26 @@ BirdWatcher.prototype.formatDate = function(time, isTitle){
 	}
 }
 
+BirdWatcher.prototype.getTimeSinceString = function(time){
+	var then = new Date(time);
+	var now = new Date();
+	var timediff = (now.getTime() - then.getTime())/1000; //First as seconds
+	var letter = ""
+	if (timediff < 60){
+		return Math.round(timediff) + "s";
+	}
+	timediff = timediff/60; //Then as minutes
+	if(timediff < 60){
+		return Math.round(timediff) + "m";
+	}
+	timediff = timediff/60; //Then as hours
+	if(timediff < 24){
+		return Math.round(timediff) + "h";
+	}
+	timediff = timediff/24; //Then as days
+	return Math.round(timediff) + "d";
+}
+
 BirdWatcher.prototype.createStreamTweet = function(tweet) {
 	user = tweet.user;
 	return '\
@@ -97,7 +121,7 @@ BirdWatcher.prototype.createStreamTweet = function(tweet) {
 							</a>\
 							<small class="time">\
 								<a href="https://www.twitter.com/' + user.screen_name + '/status/' + tweet.id_str + '" class="tweet-timestamp" title="' + this.formatDate(tweet.created_at, true) + '">\
-									<span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1364864453" data-long-form="true">3h</span>\
+									<span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1364864453" data-long-form="true">' + this.getTimeSinceString(tweet.created_at) + '</span>\
 								</a>\
 							</small>\
 						</div>\
@@ -113,37 +137,6 @@ BirdWatcher.prototype.createStreamTweet = function(tweet) {
 					</div>\
 				</div>\
 			</li>'
-}
-
-BirdWatcher.prototype.createTweetHTML = function(tweet) {
-	user = tweet.user;
-	return '\
-	<div class="root standalone-tweet ltr not-touch" dir="ltr" id="twitter-widget-0" lang="en" data-twitter-event-id="0"> \
-		<blockquote class="tweet subject expanded h-entry" data-tweet-id="' + tweet.id_str + '" cite="https://twitter.com/' + user.screen_name + '/status/' + tweet.id_str + '"> \
-			<div class="header h-card p-author"> \
-				<a class="u-url profile" href="https://twitter.com/' + user.screen_name + '" aria-label="' + user.name + ' (screen name: ' + user.screen_name + ')"> \
-					<img class="u-photo avatar" alt="" src="' + user.profile_image_url_https + '" data-src-2x="https://si0.twimg.com/profile_images/993504415/css_bigger.png" width="48" height="48"> \
-					<span class="full-name"> \
-						<span class="p-name customisable-highlight">' + user.name + '</span> \
-					</span> \
-					<span class="p-nickname" dir="ltr">@<b>' + user.screen_name + '</b> </span> \
-				</a> \
-			</div> \
-			<div class="e-entry-content"> \
-				<p class="e-entry-title"> \
-					' + tweet.text + ' <!-- <a href="http://t.co/7Gfcxp1n" dir="ltr" data-expanded-url="http://shar.es/qrZbO" class="link customisable" target="_blank" title="http://shar.es/qrZbO"><span class="tco-hidden">http://</span><span class="tco-display">shar.es/qrZbO</span><span class="tco-hidden"></span><span class="tco-ellipsis"><span class="tco-hidden">&nbsp;</span></span></a> via <a href="https://twitter.com/ShareThis" class="profile customisable h-card" dir="ltr">@<b class="p-nickname">sharethis</b></a> \
-					Examine the html in this comment for an example on how to format a link--> \
-				</p> \
-				<div class="dateline"> \
-					<a class="u-url customisable-highlight long-permalink" href="https://twitter.com/' + tweet.screen_name + '/statuses/' + tweet.id_str +'" data-datetime="' + tweet.created_at + '"> \
-						<time pubdate="" class="dt-updated" datetime="' + new Date(tweet.created_at).toISOString() + '" title="Time posted: ' + this.formatDate(tweet.created_at,true) + '"> \
-						' + this.formatDate(tweet.created_at, false) + ' \
-						</time> \
-					</a> \
-				</div> \
-			</div> \
-		</blockquote> \
-	</div>';
 }
 
 BirdWatcher.prototype.updateFeedDisplay = function() {
@@ -166,6 +159,10 @@ BirdWatcher.prototype.updateFeedDisplay = function() {
 	}
 }
 
+BirdWatcher.prototype.refreshFeed = function(){
+	this.getTweetsAndUpdateFeed(this.lat, this.lng, this.rad);
+}
+
 /**
  * Takes a Longitude, latitude and radius of the Tweet search and adds all the
  * tweets returned by the twitter search api in the div element called 'twitterfeed'
@@ -173,12 +170,21 @@ BirdWatcher.prototype.updateFeedDisplay = function() {
  * @param {Number} longitude - A double precision number
  * @param {Number} latitude - A double precision number
  * @param {Number} radius - An integer
- *
- * @return {Object} geocoords - Description
  */
-BirdWatcher.prototype.getTweetsAndUpdateFeed = function(longitude, latitude, radius) {
+BirdWatcher.prototype.getTweetsAndUpdateFeed = function(latitude, longitude, radius) {
 
-	var coords = longitude + "," + latitude + "," + radius + "mi";
+	if(this.lng !== longitude && this.lat !== latitude && this.rad !== radius) {
+		if(this.refreshProcId !== 0){
+			clearInterval(this.refreshProcId);
+			this.refreshProcId = 0;
+		}
+		this.lng = longitude;
+		this.lat = latitude;
+		this.rad = radius;
+		this.tweets.clearBuffer();
+	}
+
+	var coords = latitude + "," + longitude + "," + radius + "mi";
 	if (!(longitude && latitude && radius)) {
 		//coords = "37.781157,-122.398720,1mi";
 		coords = "41.577906,-93.745085,1mi";
@@ -188,9 +194,9 @@ BirdWatcher.prototype.getTweetsAndUpdateFeed = function(longitude, latitude, rad
 
 	var urlStr = ""
 	if (this.since_id != "") {
-		var urlStr = "./cgi-bin/gettweets.cgi?geocode=" + coords + "&since_id=" + this.since_id + "&count=" + this.numoftweets;
+		var urlStr = "./cgi-bin/gettweets.cgi?result_type=recent&geocode=" + coords + "&since_id=" + this.since_id + "&count=" + this.numoftweets;
 	} else {
-		var urlStr = "./cgi-bin/gettweets.cgi?geocode=" + coords + "&count=" + this.numoftweets;
+		var urlStr = "./cgi-bin/gettweets.cgi?result_type=recent&geocode=" + coords + "&count=" + this.numoftweets;
 	}
 
 	// Mozilla/Safari
@@ -208,6 +214,7 @@ BirdWatcher.prototype.getTweetsAndUpdateFeed = function(longitude, latitude, rad
 			//debugger;
 			self.processTweets(self.xmlHttpReq.responseText);
 			self.updateFeedDisplay();
+			if(self.refreshProcId === 0){self.refreshProcId = setInterval("bd.refreshFeed()", 30000);}
 		}
 	}
 	self.xmlHttpReq.send();
@@ -215,12 +222,12 @@ BirdWatcher.prototype.getTweetsAndUpdateFeed = function(longitude, latitude, rad
 bd = undefined;
 
 window.onload = function(){
-	bd = new BirdWatcher(undefined, 5);
+	bd = new BirdWatcher(undefined, 10);
 }
 
 function getTweets(){
 	var lat = document.getElementById("input-lat").value;
 	var long = document.getElementById("input-long").value;
 	var radius = document.getElementById("input-radius").value;
-	bd.getTweetsAndUpdateFeed(long, lat, radius);
+	bd.getTweetsAndUpdateFeed(lat, long, radius);
 }

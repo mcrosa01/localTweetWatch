@@ -1,3 +1,119 @@
+blockquote, p, span, ul, li  {
+	padding: 0;
+	margin: 0;
+	font: normal normal normal 12px/16px "Helvetica Neue", Arial, sans-serif;
+	text-decoration: none;
+	-webkit-text-size-adjust: 100%;
+	text-transform: none;
+	vertical-align: baseline;
+	list-style: none;
+	border: 0;
+	-webkit-outline: 0;
+	-moz-outline: 0;
+	-ms-outline: 0;
+	-o-outline: 0;
+	outline: 0
+}
+b, i {
+	font-style: normal;
+	font-weight: normal
+}
+abbr {
+	border-bottom: 0
+}
+.p-author:before, .p-author:after, .cards-base:before, .cards-base:after {
+	display: table;
+	content: ""
+}
+.p-author:after, .cards-base:after {
+	clear: both
+}
+.tweet, .root, .p-author {
+	zoom: 1
+}
+.root, .tweet, .footer, .detail-expander, .header, .timeline {
+	position: relative
+}
+
+.tweet-box-button {
+	font-size: 13px
+}
+.stats strong, .timeline-header- .byline, .timeline-header .list-description {
+	font-size: 12px;
+	line-height: 18px
+}
+.timeline-header .byline {
+	margin: 2px 0
+}
+.stats span {
+	font-size: 10px
+}
+.p-author a, .e-entry-title, .cards-base h3, .cards-base .cards-content p {
+	line-height: 18px
+}
+.e-entry-title a {
+	max-width: 100%;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap
+}
+a, a:visited, a:active, a:hover, a:focus, .p-author .full-name, .p-author a.profile, .p-author a.profile:hover .p-nickname, .p-author a.profile:focus .p-nickname, .p-author a.profile:hover .p-nickname b, .p-author a.profile:focus .p-nickname b, .cards-base a.profile:hover .p-nickname, .cards-base a.profile:focus .p-nickname, .cards-base a.profile:hover .p-nickname b, .cards-base a.profile:focus .p-nickname b, .cards-base .byline-user .p-nickname {
+	text-decoration: none
+}
+a:hover b, a:focus b, a:hover span, a:focus span, h3 a:hover, h3 a:focus, .timeline-header a:hover, .timeline-header a:focus, .e-entry-title .link:hover, .e-entry-title .link:focus, .footer a.expand:hover, a.permalink:hover, a.permalink:focus, a.long-permalink:hover, a.long-permalink:focus, .cards-base p a:hover, .cards-base p a:focus, .retweet-credit a:hover, .retweet-credit a:focus {
+	text-decoration: underline
+}
+html, .p-author .profile .p-name, .cards-base p, .cards-base p a, .timeline-header .summary, .timeline-header .summary a:link, .timeline-header .summary a:visited, .p-author a.profile:hover .p-name, .p-author a.profile:focus .p-name {
+	color: #333
+}
+.customisable, .customisable:link, .customisable:visited, .customisable:hover, .customisable:active, .customisable-highlight:hover, a:hover .customisable-highlight, a:focus .customisable-highlight {
+	color: #0084b4
+}
+a:link, a:visited, .stats span, .byline, .retweet-credit, .no-more-pane, .no-tweets-pane p, .p-geo, .cards-base .byline-user {
+	color: #999
+}
+a:hover, a:active, .p-author a.profile:hover, .p-author a.profile:focus, .retweet-credit .profile:hover, .retweet-credit .profile:focus, .stats strong, .no-tweets-pane .load-tweets, .nsfw {
+	color: #666
+}
+.tweet-box-button {
+	color: #aaa
+}
+.customisable-border {
+	border: 1px solid #e8e8e8
+}
+
+a:hover .ic-mask, a:focus .ic-mask {
+	background-color: #0084b4
+}
+
+.footer {
+	overflow: hidden;
+	zoom: 1
+}
+
+.footer {
+	min-height: 16px;
+	padding-top: 1px;
+	margin-top: 2px;
+	overflow: hidden;
+	border-width: 0;
+	-webkit-transition: margin-top .2s ease-out, padding-top .2s ease-out;
+	-moz-transition: margin-top .2s ease-out, padding-top .2s ease-out;
+	-ms-transition: margin-top .2s ease-out, padding-top .2s ease-out;
+	-o-transition: margin-top .2s ease-out, padding-top .2s ease-out;
+	transition: margin-top .2s ease-out, padding-top .2s ease-out
+}
+.stats span {
+	display: inline-block;
+	margin-right: 3px;
+	text-transform: uppercase
+}
+.stats strong {
+	font-weight: bold
+}
+
+
+
 
 .stream-item .follow-bar {
 	float: right
