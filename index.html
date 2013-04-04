@@ -20,6 +20,7 @@
 		<div>
 			<input id="address" type="textbox" value="Sydney, NSW">
 			<input type="button" value="Jump"  class= "styled-button" onclick="codeAddress()">
+			<input type="button" value= "Get Tweets!" class= "styled-button" onclick="lookForTweets()">
 		</div>
 		<div id="map-canvas"></div>
 		<div id="twitter-widget">
@@ -28,30 +29,12 @@
 					<p>
 						Tweets based on Coordinates given!
 					</p>
-					<div class="root standalone-tweet ltr not-touch" dir="ltr" id="twitter-widget-0" lang="en" >
-						<blockquote class="tweet subject expanded h-entry" >
-							You have yet to load any tweets! Click on a spot on the map to do so!
-						</blockquote>
-					</div>
+					<blockquote class="tweet" >
+						You have yet to load any tweets! Click on a spot on the map to do so!
+					</blockquote>
 				</li>
 			</ul>
 		</div>
-		<div id="search-controls">
-			<div id="optionpane">
-				Latitude
-				<input type="number" id="input-lat" />
-				<br/>
-				Longitude
-				<input type="number" id="input-long" />
-				<br/>
-				Radius
-				<input type="number" id="input-radius" />
-				<br/>
-				<input type="button" value= "Get Tweets!" class= "styled-button" onclick="lookForTweets()">
-				<br/>
-			</div>
-		</div>
-
 		<footer>
 			<p>
 				Big thanks to <a href="http://fontfabric.com/archive-free-font/">font fabric and Slava Kirilenko</a> for the header font!

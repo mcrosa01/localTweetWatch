@@ -55,15 +55,15 @@ BirdWatcher.prototype.processTweets = function(tweetsjson) {
 	tweets = data['statuses'];
 	count = 0;
 	this.coordlist = []
-	for (var i = 0; i < tweets.length; i++) {
+	for (var i = 0; i < this.numoftweets; i++) {
 		var tweet = tweets[i]
 		
 		tcoords = tweet.coordinates;
 		
 		if (tcoords && tcoords.type === "Point") {
 			tweet.letter = String.fromCharCode(65 + count);
-			coords = tcoords.coordinates;
-			this.coordlist.push([tweet.letter, coords[0], coords[1]])
+			coords = tcoords.coordinates;//geoJSON - [lng,lat]
+			this.coordlist.push([tweet.letter, coords[1], coords[0]])
 			count++;
 		}
 		
@@ -110,33 +110,31 @@ BirdWatcher.prototype.getTimeSinceString = function(time){
 BirdWatcher.prototype.createStreamTweet = function(tweet) {
 	user = tweet.user;
 	return '\
-	<li class="stream-item" >\
-				<div class="tweet original-tweet">\
-					<div class="content">\
-						<div class="stream-item-header">\
-							<a class="account-group" href="https://www.twitter.com/' + user.screen_name + '" >\
-								<img class="avatar" src="' + user.profile_image_url_https + '" alt="' + user.screen_name + '">\
-								<strong class="fullname show-popup-with-id">' + user.name + '</strong>\
-								<span class="username"><s>@</s><b>' + user.screen_name + '</b></span>\
+			<div class="tweet original-tweet">\
+				<div class="content">\
+					<div class="stream-item-header">\
+						<a class="account-group" href="https://www.twitter.com/' + user.screen_name + '" >\
+							<img class="avatar" src="' + user.profile_image_url_https + '" alt="' + user.screen_name + '">\
+							<strong class="fullname show-popup-with-id">' + user.name + '</strong>\
+							<span class="username"><s>@</s><b>' + user.screen_name + '</b></span>\
+						</a>\
+						<small class="time">\
+							<a href="https://www.twitter.com/' + user.screen_name + '/status/' + tweet.id_str + '" class="tweet-timestamp" title="' + this.formatDate(tweet.created_at, true) + '">\
+								<span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1364864453" data-long-form="true">' + this.getTimeSinceString(tweet.created_at) + '</span>\
 							</a>\
-							<small class="time">\
-								<a href="https://www.twitter.com/' + user.screen_name + '/status/' + tweet.id_str + '" class="tweet-timestamp" title="' + this.formatDate(tweet.created_at, true) + '">\
-									<span class="_timestamp js-short-timestamp js-relative-timestamp" data-time="1364864453" data-long-form="true">' + this.getTimeSinceString(tweet.created_at) + '</span>\
-								</a>\
-							</small>\
-						</div>\
-						<p class="">' + tweet.text + '</p>\
-						<div class="footer customisable-border">\
-							<span class="stats-narrow">\
-								<span class="stats">\
-									<span class="stats-retweets"> <strong>' + tweet.retweet_count + '</strong> Retweets </span>\
-									<span class="stats-favorites"> <strong>' + tweet.favorite_count + '</strong> favorites </span>\
-								</span>\
+						</small>\
+					</div>\
+					<p class="">' + tweet.text + '</p>\
+					<div class="footer customisable-border">\
+						<span class="stats-narrow">\
+							<span class="stats">\
+								<span class="stats-retweets"> <strong>' + tweet.retweet_count + '</strong> Retweets </span>\
+								<span class="stats-favorites"> <strong>' + tweet.favorite_count + '</strong> favorites </span>\
 							</span>\
-						</div>\
+						</span>\
 					</div>\
 				</div>\
-			</li>'
+			</div>'
 }
 
 BirdWatcher.prototype.updateFeedDisplay = function() {
@@ -152,7 +150,7 @@ BirdWatcher.prototype.updateFeedDisplay = function() {
 		}
 		var tweetdisplay = document.createElement("li");
 		tweetdisplay.id = tweet.letter;
-		tweetdisplay.class = "stream-item";
+		tweetdisplay.className = "stream-item";
 		//tweetdisplay.innerHTML = this.createTweetHTML(tweet);
 		tweetdisplay.innerHTML = this.createStreamTweet(tweet);
 		this.feeddisplay.appendChild(tweetdisplay);
@@ -214,6 +212,7 @@ BirdWatcher.prototype.getTweetsAndUpdateFeed = function(latitude, longitude, rad
 			self.processTweets(self.xmlHttpReq.responseText);
 			self.updateFeedDisplay();
 			if(self.refreshProcId === 0){self.refreshProcId = setInterval("bd.refreshFeed()", 30000);}
+			placeTweetMarkers(self.coordlist);
 		}
 	}
 	self.xmlHttpReq.send();
