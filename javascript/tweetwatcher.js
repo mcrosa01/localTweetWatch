@@ -172,7 +172,6 @@ BirdWatcher.prototype.refreshFeed = function(){
  * @param {Number} radius - An integer
  */
 BirdWatcher.prototype.getTweetsAndUpdateFeed = function(latitude, longitude, radius) {
-
 	if(this.lng !== longitude && this.lat !== latitude && this.rad !== radius) {
 		if(this.refreshProcId !== 0){
 			clearInterval(this.refreshProcId);
