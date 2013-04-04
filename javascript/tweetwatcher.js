@@ -92,15 +92,15 @@ BirdWatcher.prototype.getTimeSinceString = function(time){
 	var now = new Date();
 	var timediff = (now.getTime() - then.getTime())/1000; //First as seconds
 	var letter = ""
-	if (timediff < 60){
+	if (Math.round(timediff) < 60){
 		return Math.round(timediff) + "s";
 	}
 	timediff = timediff/60; //Then as minutes
-	if(timediff < 60){
+	if(Math.round(timediff) < 60){
 		return Math.round(timediff) + "m";
 	}
 	timediff = timediff/60; //Then as hours
-	if(timediff < 24){
+	if(Math.round(timediff) < 24){
 		return Math.round(timediff) + "h";
 	}
 	timediff = timediff/24; //Then as days
@@ -172,13 +172,13 @@ BirdWatcher.prototype.refreshFeed = function(){
  * @param {Number} radius - An integer
  */
 BirdWatcher.prototype.getTweetsAndUpdateFeed = function(latitude, longitude, radius) {
-	if(this.lng !== longitude && this.lat !== latitude && this.rad !== radius) {
+	if(this.lat !== latitude || this.lng !== longitude || this.rad !== radius) {
 		if(this.refreshProcId !== 0){
 			clearInterval(this.refreshProcId);
 			this.refreshProcId = 0;
 		}
-		this.lng = longitude;
 		this.lat = latitude;
+		this.lng = longitude;
 		this.rad = radius;
 		this.tweets.clearBuffer();
 	}

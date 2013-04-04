@@ -37,22 +37,27 @@
 
 html { height: 100% }
 @font-face{
-	font-fanmily: "Archive";
-	src: url('type/archive/Archive.eot?') format('eot'), url('type/archive/Archive.woff') format('woff'), url('type/archive/Archive.ttf') format('truetype');
+	font-family: 'archiveregular';
+    src: url('archive-webfont.eot');
+    src: url('archive-webfont.eot?#iefix') format('embedded-opentype'),
+         url('archive-webfont.woff') format('woff'),
+         url('archive-webfont.ttf') format('truetype'),
+         url('archive-webfont.svg#archiveregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 body { height: 100%; 
-	margin: 30px; 
-	padding: 0; 
 	background-color: #FFF;
 	font-family: "Arial Black", Gadget, sans-serif;
 }
 
 header{
 	color: #FFF;
+	padding-left: 30px; 
 	background-color: #44AAFF;
-	box-shadow: 5px 5px 5px #888888;
-	font-family: "Archive", "Arial Black", Gadget, sans-serif;
+	box-shadow: 0px 0px 5px #888888;
+	font-family: "archiveregular", "Arial Black", Gadget, sans-serif;
 	font-size: xx-large;
 }
 
@@ -64,11 +69,11 @@ footer{
 	bottom: 5px;
 }
 #map-canvas { height: 50%; 
-	width: 56%;
+	width: 50%;
 	float: left;
 	border-color: #44AAFF;
 	border-style:solid;
 	border-width: 10px;
-	box-shadow: 5px 5px 5px #888888; 
+	box-shadow: 0px 0px 5px #888888;
 }
 /*What if we used a gradient to help the background look fancier?*/
