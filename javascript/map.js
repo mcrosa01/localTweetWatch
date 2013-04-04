@@ -1,5 +1,6 @@
 var geocoder;
 var map;
+var markers = new Array();
 
 initialize = function() {
 	geocoder = new google.maps.Geocoder();
@@ -37,6 +38,23 @@ function codeAddress() {
 	});
 }
 
+// Deletes all markers in the array by removing references to them
+function deleteMarkers() {
+	if (markers) {
+		for (var i = 0; i < markers.length; i++) {
+			markers[i].setMap(null);
+		}
+		markers.length = 0;
+	}
+}
+
+//Clears the highlighting on all the tweets in the feed.
+clearHighlights = function() {
+	tweets = document.getElementsByClassName("tweet");
+	for (var i = 0; i < tweets.length; i++) {
+		tweets[i].style.backgroundColor = 'white';
+	}
+}
 function placeTweetMarkers(coordlist) {
 	// Google Map Custom Marker Maker 2012
 	// Please include the following credit in your code
@@ -50,6 +68,10 @@ function placeTweetMarkers(coordlist) {
 		type : 'poly'
 	};
 
+	//Remove all current markers
+	deleteMarkers();
+
+	//Add the new/current markers
 	for (var i = 0; i < coordlist.length; i++) {
 
 		var point = new google.maps.LatLng(coordlist[i][1], coordlist[i][2]);
@@ -66,11 +88,7 @@ function placeTweetMarkers(coordlist) {
 
 		funcmaker = function(letter) {
 			return function() {
-				tweets = document.getElementsByClassName("tweet");
-				for(var i = 0; i < tweets.length; i++){
-					tweets[i].style.backgroundColor = 'white';
-				}
-				
+				clearHighlights();
 				li = document.getElementById(letter)
 				div = li.getElementsByClassName("tweet")[0];
 				div.style.backgroundColor = '#D4EDFA';
@@ -80,8 +98,9 @@ function placeTweetMarkers(coordlist) {
 			};
 		}
 
-		marker.letter = coordlist[i][0];
-		google.maps.event.addListener(marker, 'click', funcmaker(marker.letter));
+		markers.push(marker);
+		google.maps.event.addListener(marker, 'mouseover', funcmaker(coordlist[i][0]));
+		google.maps.event.addListener(marker, 'mouseout', clearHighlights);
 	}
 }
 
