@@ -6,9 +6,9 @@
 #twitter-widget {
 	float: left;
 	overflow: auto;
-	width: 40%;
+	width: 42%;
 	height: 50%;
-	margin-left: 1%;
+	margin-left: 3%;
 	border-color: #4AF;
 	border-style: solid;
 	border-width: 10px;
@@ -32,7 +32,10 @@
 	-moz-border-radius:2px;
 	-webkit-border-radius:2px;
 	
-	border:1px solid #1A87B9
+	border:1px solid #1A87B9;
+	margin-right: 60px;
+	margin-bottom: 15px;
+	
 }
 
 html { height: 100% }
@@ -65,7 +68,6 @@ footer{
 	color: #000;
 	font-family: "Arial Black", Gadget, sans-serif;
 	font-size: small;
-	position: absolute;
 	bottom: 5px;
 }
 #map-canvas { height: 50%; 
@@ -76,4 +78,3 @@ footer{
 	border-width: 10px;
 	box-shadow: 0px 0px 5px #888888;
 }
-/*What if we used a gradient to help the background look fancier?*/
